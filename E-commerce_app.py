@@ -129,6 +129,12 @@ def displayplot4():
     whb_count.rename(columns={"index": "Warehouse_block","Warehouse_block":"Count"},inplace=True)
     fig = px.pie(whb_count, values='Count', names='Warehouse_block',title="Items in Each WareHouse Block")
     st.plotly_chart(fig)
+#vis 2
+    feature_selection = st.sidebar.selectbox(label="Select Warehouse", options=("A", "B", "C", "D", "E"))
+    df_user1 = df_user[df_user['Warehouse_block']== feature_selection]
+    plotly_figure=px.sunburst(df_user1, path=['Warehouse_block', 'Mode_of_Shipment', 'Product_importance'])
+    st.write(plotly_figure)
+
 
 
 options = st.sidebar.radio('Bladzijdes📂', options=['Histogram verdeling', 'Scatter plot', 'Bar chart', 'Boxplot', 'Piechart'])
