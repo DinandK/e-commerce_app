@@ -29,12 +29,14 @@ st.sidebar.write("""# Opties menu⚙️""")
 
 #_min= df['ID'].min()
 #_max = df['ID'].max()
+#df_user['Cost_of_the_Product'].min()
+#df_user['Cost_of_the_Product'].max()
 
 #sliders
 if st.sidebar.checkbox("Sliders menu🎚️"):
     _id = st.sidebar.slider('Aantal IDs', 1 , 10999, 5500)
     df_user = df[df['ID'] <= _id]
-    _price = st.sidebar.slider('Selecter een range voor de kosten per prduct', df_user['Cost_of_the_Product'].min(), df_user['Cost_of_the_Product'].max(), 200)
+    _price = st.sidebar.slider('Selecter een range voor de kosten per prduct', 96, 310, 200)
     df_user = df_user[df_user['Cost_of_the_Product'] <= _price]
     see_user_data = st.expander('Data na selectie👇')
     with see_user_data:
