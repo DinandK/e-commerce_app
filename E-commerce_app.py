@@ -45,16 +45,17 @@ if st.sidebar.checkbox("Sliders menu🎚️"):
 
 #code voor histogram
 def displayplot():
+ st.write("""##### Verdeling verkoopprijs in verhouding tot vervoermethode: """)
  fig = px.histogram(data_frame=df_user,
                    x='Cost_of_the_Product',
                    color='Mode_of_Shipment',
-                   title='Histogram',
                    animation_frame='Product_importance')
  fig['layout'].pop('updatemenus')
  st.plotly_chart(fig)
 
 #code voor scatterplot
 def displayplot1():
+    st.write("""#####  Correlatie gewicht met korting""")
     fig = plt.subplots()
     fig = px.scatter(df_user,
                  x='Weight_in_gms',
@@ -62,9 +63,9 @@ def displayplot1():
                  color = 'Arrival_Time',
                  animation_frame='Mode_of_Shipment',
                  labels={
-                     "Weight_in_gms": "Gewicht zending (in gram)",
-                     "Discount_offered": "Korting (in %)",
-                     "Arrival_Time": "Wel of niet op tijd geleverd? "
+                     "Weight_in_gms": "Weight (in grams)",
+                     "Discount_offered": "Discount offered (in %)",
+                     "Arrival_Time": "On time? "
                  })
     fig['layout'].pop('updatemenus')
     st.plotly_chart(fig)
@@ -72,10 +73,12 @@ def displayplot1():
 #code voor barplot
 def displayplot2():
 #vis1
+    st.write("""#####  Leverbetrouwbaarheid per warehouse""")
     fig = plt.figure(figsize = (17, 6))
     sns.countplot('Warehouse_block', hue = 'Arrival_Time', data = df_user)
     st.write(fig)
-#vis2    
+#vis2
+    st.write("""#####  Invloed shipping method op product importance""")    
     fig = px.histogram(df_user,
                  x='Product_importance',
                  color='Mode_of_Shipment')
@@ -97,39 +100,40 @@ def displayplot2():
 #code voor boxplot
 def displayplot3():  
 #vis 1
+ st.write("""#####  Cost Distribution with refrence to Mode of Shipment""") 
  flight = df_user[df_user["Mode_of_Shipment"]=="Flight"]
  ship = df_user[df_user["Mode_of_Shipment"]=="Ship"]
  road = df_user[df_user["Mode_of_Shipment"]=="Road"]
  trace = go.Box(y = flight["Cost_of_the_Product"], name= "Flight" )
  trace1 = go.Box(y = ship["Cost_of_the_Product"], name= "Ship" )
  trace2 = go.Box(y = road["Cost_of_the_Product"], name= "Road" )
-
- layout = go.Layout(title="Cost Distribution with refrence to Mode of Shipment", 
-                yaxis=dict(title="Cost of Product"), 
+ layout = go.Layout(yaxis=dict(title="Cost of Product"), 
                 xaxis= dict(title="Mode of Shipment"))
  data=[trace, trace1, trace2]
  fig = go.Figure(data = data, layout=layout)
  st.plotly_chart(fig)
 
-#vis2
+#vis 2
+ st.write("""#####  Cost Distribution with refrence to Arrival TIme""") 
  ontime = df_user[df_user["Arrival_Time"]==0]
  delay = df_user[df_user["Arrival_Time"]==1]
  trace = go.Box(y = ontime["Cost_of_the_Product"], name= "Ontime" )
  trace1 = go.Box(y = delay["Cost_of_the_Product"], name= "Delayed" )
- layout = go.Layout(title="Cost Distribution with refrence to Arrival TIme", 
-                   yaxis=dict(title="Cost of Product"), 
+ layout = go.Layout(yaxis=dict(title="Cost of Product"), 
                    xaxis= dict(title="Arrival Time"))
  data=[trace, trace1]
  fig = go.Figure(data = data, layout=layout)
  st.plotly_chart(fig)
 
 def displayplot4():
-#vis1    
+#vis 1
+    st.write("""#####  Items in Each WareHouse Block""")    
     whb_count = pd.DataFrame(df_user["Warehouse_block"].value_counts()).reset_index()
     whb_count.rename(columns={"index": "Warehouse_block","Warehouse_block":"Count"},inplace=True)
-    fig = px.pie(whb_count, values='Count', names='Warehouse_block',title="Items in Each WareHouse Block")
+    fig = px.pie(whb_count, values='Count', names='Warehouse_block')
     st.plotly_chart(fig)
 #vis 2
+    st.write("""#####  Leveringsmethode en product prioriteit per warehouse""")
     feature_selection = st.sidebar.selectbox(label="Select Warehouse", options=("A", "B", "C", "D", "E"))
     df_user1 = df_user[df_user['Warehouse_block']== feature_selection]
     plotly_figure=px.sunburst(df_user1, path=['Warehouse_block', 'Mode_of_Shipment', 'Product_importance'])
