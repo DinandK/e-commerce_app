@@ -80,11 +80,11 @@ def displayplot2():
                  x='Product_importance',
                  color='Mode_of_Shipment')
     dropdown_buttons = [
-    {'label': "All shiping methods", 'method': "update", 'args': [{"visible": [True, True, True, True]}, {"title": "All shiping methods"}]},
-    {'label': "Flight", 'method': "update", 'args': [{"visible": [False, True, False, False]}, {"title": "Flight"}]},
-    {'label': "Ship", 'method': "update", 'args': [{"visible": [False, False, True, False]}, {"title": "Ship"}]},
-    {'label': "Road", 'method': "update", 'args': [{"visible": [False, False, False, True]}, {"title": "Road"}]}
-    ]  
+    {'label': "All shiping methods", 'method': "update", 'args': [{"visible": [True, True, True]}, {"title": "All shiping methods"}]},
+    {'label': "Flight", 'method': "update", 'args': [{"visible": [ True, False, False]}, {"title": "Flight"}]},
+    {'label': "Ship", 'method': "update", 'args': [{"visible": [False, True, False]}, {"title": "Ship"}]},
+    {'label': "Road", 'method': "update", 'args': [{"visible": [False, False, True]}, {"title": "Road"}]}
+    ] 
     fig.update_xaxes(title_text="Product importance")
     fig.update_layout({
         'updatemenus': [
